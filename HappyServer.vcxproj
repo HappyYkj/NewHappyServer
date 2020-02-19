@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\router.cpp" />
+    <ClCompile Include="core\server.cpp" />
+    <ClCompile Include="core\worker.cpp" />
+    <ClCompile Include="happy.cpp" />
+    <ClCompile Include="magic\lua_bind.cpp" />
+    <ClCompile Include="magic\lua_serialize.cpp" />
+    <ClCompile Include="services\lua_service.cpp" />
+    <ClCompile Include="thirds\lfs\src\lfs.c" />
+    <ClCompile Include="thirds\libuv\src\fs-poll.c" />
+    <ClCompile Include="thirds\libuv\src\idna.c" />
+    <ClCompile Include="thirds\libuv\src\inet.c" />
+    <ClCompile Include="thirds\libuv\src\random.c" />
+    <ClCompile Include="thirds\libuv\src\strscpy.c" />
+    <ClCompile Include="thirds\libuv\src\threadpool.c" />
+    <ClCompile Include="thirds\libuv\src\timer.c" />
+    <ClCompile Include="thirds\libuv\src\uv-common.c" />
+    <ClCompile Include="thirds\libuv\src\uv-data-getter-setters.c" />
+    <ClCompile Include="thirds\libuv\src\version.c" />
+    <ClCompile Include="thirds\libuv\src\win\async.c" />
+    <ClCompile Include="thirds\libuv\src\win\core.c" />
+    <ClCompile Include="thirds\libuv\src\win\detect-wakeup.c" />
+    <ClCompile Include="thirds\libuv\src\win\dl.c" />
+    <ClCompile Include="thirds\libuv\src\win\error.c" />
+    <ClCompile Include="thirds\libuv\src\win\fs-event.c" />
+    <ClCompile Include="thirds\libuv\src\win\fs.c" />
+    <ClCompile Include="thirds\libuv\src\win\getaddrinfo.c" />
+    <ClCompile Include="thirds\libuv\src\win\getnameinfo.c" />
+    <ClCompile Include="thirds\libuv\src\win\handle.c" />
+    <ClCompile Include="thirds\libuv\src\win\loop-watcher.c" />
+    <ClCompile Include="thirds\libuv\src\win\pipe.c" />
+    <ClCompile Include="thirds\libuv\src\win\poll.c" />
+    <ClCompile Include="thirds\libuv\src\win\process-stdio.c" />
+    <ClCompile Include="thirds\libuv\src\win\process.c" />
+    <ClCompile Include="thirds\libuv\src\win\signal.c" />
+    <ClCompile Include="thirds\libuv\src\win\snprintf.c" />
+    <ClCompile Include="thirds\libuv\src\win\stream.c" />
+    <ClCompile Include="thirds\libuv\src\win\tcp.c" />
+    <ClCompile Include="thirds\libuv\src\win\thread.c" />
+    <ClCompile Include="thirds\libuv\src\win\tty.c" />
+    <ClCompile Include="thirds\libuv\src\win\udp.c" />
+    <ClCompile Include="thirds\libuv\src\win\util.c" />
+    <ClCompile Include="thirds\libuv\src\win\winapi.c" />
+    <ClCompile Include="thirds\libuv\src\win\winsock.c" />
+    <ClCompile Include="thirds\lluv\src\l52util.c" />
+    <ClCompile Include="thirds\lluv\src\lluv.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_check.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_dns.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_error.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_fbuf.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_fs.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_fs_event.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_fs_poll.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_handle.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_idle.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_list.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_loop.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_misc.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_pipe.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_poll.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_prepare.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_process.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_req.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_signal.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_stream.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_tcp.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_timer.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_tty.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_udp.c" />
+    <ClCompile Include="thirds\lluv\src\lluv_utils.c" />
+    <ClCompile Include="thirds\luajson\fpconv.c" />
+    <ClCompile Include="thirds\luajson\lua_cjson.c" />
+    <ClCompile Include="thirds\luajson\strbuf.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common\buffer.hpp" />
+    <ClInclude Include="common\buffer_view.hpp" />
+    <ClInclude Include="common\concurrent_map.hpp" />
+    <ClInclude Include="common\concurrent_queue.hpp" />
+    <ClInclude Include="common\directory.hpp" />
+    <ClInclude Include="common\file.hpp" />
+    <ClInclude Include="common\hash.hpp" />
+    <ClInclude Include="common\logger.hpp" />
+    <ClInclude Include="common\macro.hpp" />
+    <ClInclude Include="common\message.hpp" />
+    <ClInclude Include="common\noncopyable.hpp" />
+    <ClInclude Include="common\object_pool.hpp" />
+    <ClInclude Include="common\platform.hpp" />
+    <ClInclude Include="common\rapidjson_helper.hpp" />
+    <ClInclude Include="common\rwlock.hpp" />
+    <ClInclude Include="common\spinlock.hpp" />
+    <ClInclude Include="common\string.hpp" />
+    <ClInclude Include="common\termcolor.hpp" />
+    <ClInclude Include="common\time.hpp" />
+    <ClInclude Include="common\timer.hpp" />
+    <ClInclude Include="common\utils.hpp" />
+    <ClInclude Include="core\config.hpp" />
+    <ClInclude Include="core\router.h" />
+    <ClInclude Include="core\server.h" />
+    <ClInclude Include="core\server_config.hpp" />
+    <ClInclude Include="core\service.hpp" />
+    <ClInclude Include="core\timer.hpp" />
+    <ClInclude Include="core\worker.h" />
+    <ClInclude Include="core\worker_timer.hpp" />
+    <ClInclude Include="magic\lua_bind.h" />
+    <ClInclude Include="magic\lua_buffer.hpp" />
+    <ClInclude Include="services\lua_service.h" />
+    <ClInclude Include="services\lua_service_config.hpp" />
+    <ClInclude Include="thirds\lfs\src\lfs.h" />
+    <ClInclude Include="thirds\libuv\include\uv.h" />
+    <ClInclude Include="thirds\libuv\include\uv\aix.h" />
+    <ClInclude Include="thirds\libuv\include\uv\android-ifaddrs.h" />
+    <ClInclude Include="thirds\libuv\include\uv\bsd.h" />
+    <ClInclude Include="thirds\libuv\include\uv\darwin.h" />
+    <ClInclude Include="thirds\libuv\include\uv\errno.h" />
+    <ClInclude Include="thirds\libuv\include\uv\linux.h" />
+    <ClInclude Include="thirds\libuv\include\uv\os390.h" />
+    <ClInclude Include="thirds\libuv\include\uv\posix.h" />
+    <ClInclude Include="thirds\libuv\include\uv\stdint-msvc2008.h" />
+    <ClInclude Include="thirds\libuv\include\uv\sunos.h" />
+    <ClInclude Include="thirds\libuv\include\uv\threadpool.h" />
+    <ClInclude Include="thirds\libuv\include\uv\tree.h" />
+    <ClInclude Include="thirds\libuv\include\uv\unix.h" />
+    <ClInclude Include="thirds\libuv\include\uv\version.h" />
+    <ClInclude Include="thirds\libuv\include\uv\win.h" />
+    <ClInclude Include="thirds\libuv\src\heap-inl.h" />
+    <ClInclude Include="thirds\libuv\src\idna.h" />
+    <ClInclude Include="thirds\libuv\src\queue.h" />
+    <ClInclude Include="thirds\libuv\src\strscpy.h" />
+    <ClInclude Include="thirds\libuv\src\uv-common.h" />
+    <ClInclude Include="thirds\libuv\src\win\atomicops-inl.h" />
+    <ClInclude Include="thirds\libuv\src\win\fs-fd-hash-inl.h" />
+    <ClInclude Include="thirds\libuv\src\win\handle-inl.h" />
+    <ClInclude Include="thirds\libuv\src\win\internal.h" />
+    <ClInclude Include="thirds\libuv\src\win\req-inl.h" />
+    <ClInclude Include="thirds\libuv\src\win\stream-inl.h" />
+    <ClInclude Include="thirds\libuv\src\win\winapi.h" />
+    <ClInclude Include="thirds\libuv\src\win\winsock.h" />
+    <ClInclude Include="thirds\luajson\dtoa_config.h" />
+    <ClInclude Include="thirds\luajson\fpconv.h" />
+    <ClInclude Include="thirds\luajson\strbuf.h" />
+    <ClInclude Include="thirds\sol\forward.hpp" />
+    <ClInclude Include="thirds\sol\sol.hpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{D0D20382-C833-49DE-BC26-9B2F2A6DECDB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>HappyServer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)\execute\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\runtime\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)\execute\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\runtime\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)\execute\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\runtime\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)\execute\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\runtime\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>4018;4244;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>4244;4267;4311;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4018;4244;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4244;4267;4311;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

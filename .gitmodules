@@ -1,0 +1,28 @@
+[submodule "thirds/rapidjson"]
+	path = thirds/rapidjson
+	url = https://github.com/happiykj/rapidjson.git
+[submodule "thirds/libuv"]
+	path = thirds/libuv
+	url = https://github.com/happiykj/libuv.git
+[submodule "thirds/lua"]
+	path = thirds/lua
+	url = https://github.com/happiykj/lua.git
+	branch = v5.3
+[submodule "thirds/luajson"]
+	path = thirds/luajson
+	url = https://github.com/happiykj/lua-cjson.git
+[submodule "thirds/sol2"]
+	path = thirds/sol2
+	url = https://github.com/happiykj/sol2-single.git
+[submodule "thirds/lluv"]
+	path = thirds/lluv
+	url = https://github.com/happiykj/lua-lluv.git
+[submodule "thirds/lluv-redis"]
+	path = thirds/lluv-redis
+	url = https://github.com/happiykj/lua-lluv-redis.git
+[submodule "thirds/EventEmitter"]
+	path = thirds/EventEmitter
+	url = https://github.com/happiykj/lua-EventEmitter.git
+[submodule "thirds/lfs"]
+	path = thirds/lfs
+	url = https://github.com/happiykj/luafilesystem.git

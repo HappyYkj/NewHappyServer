@@ -1,0 +1,22 @@
+[
+    {
+        "sid": 1,
+        "name": "server_#sid",
+        "outer_host": "127.0.0.1",
+        "inner_host": "127.0.0.1",
+        "thread": 2,
+        "startup": "main.lua",
+        "log": "log/#sid_#date.log",
+        "cpath": [ "../clib" ],
+        "path": [ "../lualib" ],
+        "services": [
+            {
+                "unique": true,
+                "name": "main",
+                "file": "main.lua",
+                "host": "#inner_host",
+                "port": 12345
+            }
+        ]
+    }
+]
