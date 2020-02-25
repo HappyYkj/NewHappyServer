@@ -2,8 +2,8 @@
 #include "common/macro.hpp"
 
 constexpr int32_t WORKER_ID_SHIFT = 24;
-constexpr int64_t UPDATE_INTERVAL = 10; //ms
-constexpr int32_t BUFFER_HEAD_RESERVED = 14;//max : websocket header  max  len
+constexpr int64_t UPDATE_INTERVAL = 10; // ms
+constexpr int32_t BUFFER_HEAD_RESERVED = 14;// max : websocket header  max  len
 
 DECLARE_UNIQUE_PTR(message);
 DECLARE_SHARED_PTR(buffer);
@@ -15,8 +15,8 @@ constexpr uint8_t PTYPE_TEXT = 2;
 constexpr uint8_t PTYPE_LUA = 3;
 constexpr uint8_t PTYPE_SOCKET = 4;
 constexpr uint8_t PTYPE_ERROR = 5;
-constexpr uint8_t PTYPE_SOCKET_WS = 6; //websocket
-constexpr uint8_t PTYPE_DEBUG = 7;//
+constexpr uint8_t PTYPE_SOCKET_WS = 6; // websocket
+constexpr uint8_t PTYPE_DEBUG = 7; //
 
 //network
 using message_size_t = uint16_t;

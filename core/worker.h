@@ -74,7 +74,7 @@ private:
 private:
     std::atomic<state> state_ = state::init;
     std::atomic_bool shared_ = true;
-    //to prevent post too many update event
+    // to prevent post too many update event
     std::atomic_flag update_state_ = ATOMIC_FLAG_INIT;
     std::atomic_uint32_t count_ = 0;
     uint32_t uuid_ = 0;
@@ -90,4 +90,5 @@ private:
     std::unordered_map<uint32_t, service_ptr_t> services_;
     std::unordered_map<uint32_t, buffer_ptr_t> prefabs_;
     std::unordered_map<std::string, command_hander_t> commands_;
+    std::mutex mutex_;
 };

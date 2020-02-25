@@ -15,11 +15,14 @@ public:
 
     void lock()
     {
-        int counter = 0;
+        int count = 0;
         while (!try_lock())
         {
-            if (++counter > 1000)
+            ++count;
+            if (count > 1000)
+            {
                 std::this_thread::yield();
+            }
         }
     }
 

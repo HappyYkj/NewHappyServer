@@ -39,7 +39,7 @@ public:
         return start_millsecond + diff.count() + offset_;
     }
 
-    //e. 2017-11-11 16:03:11.635
+    // e. 2017-11-11 16:03:11.635
     static size_t milltimestamp(int64_t t, char* buf, size_t len)
     {
         if (len < 23)

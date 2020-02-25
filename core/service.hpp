@@ -92,7 +92,7 @@ public:
     {
         dispatch(m.get());
 
-        //redirect message
+        // redirect message
         if (m->receiver() != id() && m->receiver() != 0)
         {
             if (m->broadcast())

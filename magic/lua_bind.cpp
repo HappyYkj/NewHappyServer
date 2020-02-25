@@ -8,7 +8,7 @@
 #include "common/message.hpp"
 #include "core/server.h"
 #include "core/worker.h"
-// #include "lua_buffer.hpp"
+#include "lua_buffer.hpp"
 #include "services/lua_service.h"
 
 lua_bind::lua_bind(sol::table& lua_)
@@ -113,7 +113,7 @@ static void lua_extend_library(lua_State* L, lua_CFunction f, const char* gname,
 static void sol_extend_library(sol::table t, lua_CFunction f, const char* name, const std::function<int(lua_State* L)>& uv = nullptr)
 {
     lua_State* L = t.lua_state();
-    t.push();//sol table
+    t.push(); // sol table
     int upvalue = 0;
     if (uv)
     { 
@@ -121,7 +121,7 @@ static void sol_extend_library(sol::table t, lua_CFunction f, const char* name, 
     }
     lua_pushcclosure(L, f, upvalue);
     lua_setfield(L, -2, name);
-    lua_pop(L, 1); //sol table
+    lua_pop(L, 1); // sol table
     assert(lua_gettop(L) == 0);
 }
 
@@ -181,10 +181,10 @@ const lua_bind& lua_bind::bind_log(logger* log, uint32_t serviceid) const
 
 const lua_bind& lua_bind::bind_message() const
 {
-    //https://sol2.readthedocs.io/en/latest/functions.html?highlight=lua_CFunction
-    //Note that stateless lambdas can be converted to a function pointer, 
-    //so stateless lambdas similar to the form [](lua_State*) -> int { ... } will also be pushed as raw functions.
-    //If you need to get the Lua state that is calling a function, use sol::this_state.
+    // https://sol2.readthedocs.io/en/latest/functions.html?highlight=lua_CFunction
+    // Note that stateless lambdas can be converted to a function pointer, 
+    // so stateless lambdas similar to the form [](lua_State*) -> int { ... } will also be pushed as raw functions.
+    // If you need to get the Lua state that is calling a function, use sol::this_state.
 
     auto write_front = [](lua_State* L)->int
     {

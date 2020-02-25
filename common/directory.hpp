@@ -70,7 +70,7 @@ public:
         return (!ec) && b;
     }
 
-    //THandler bool(const fs::path& path,bool dir)
+    // THandler bool(const fs::path& path,bool dir)
     template<typename THandler>
     static void traverse_folder(const std::string& dir, int depth, THandler&&handler)
     {

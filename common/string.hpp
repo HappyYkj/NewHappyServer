@@ -163,7 +163,7 @@ std::vector<T> split(const std::string_view& src, const std::string_view& sep)
         {
             if (b != e && b != i)
             {
-                r.push_back(string_convert<T>(std::string_view(std::addressof(*b), size_t(i - b))));
+                r.emplace_back(string_convert<T>(std::string_view(std::addressof(*b), size_t(i - b))));
             }
             b = e;
         }
@@ -177,15 +177,18 @@ std::vector<T> split(const std::string_view& src, const std::string_view& sep)
     }
     if (b != e)
     {
-        r.push_back(string_convert<T>(std::string_view(std::addressof(*b), size_t(e - b))));
+        r.emplace_back(string_convert<T>(std::string_view(std::addressof(*b), size_t(e - b))));
     }
     return r;
 }
 
-//format string
+// format string
 inline std::string format(const char* fmt, ...)
 {
-    if (!fmt) return std::string("");
+    if (!fmt)
+    {
+        return std::string("");
+    }
 
     static constexpr size_t MAX_FMT_LEN = 8192;
     static thread_local char fmtbuf[MAX_FMT_LEN + 1];
@@ -261,11 +264,11 @@ inline void replace(std::string& src, std::string_view old, std::string_view str
     }
 }
 
-//https://en.cppreference.com/w/cpp/string/byte/tolower
-//the behavior of std::tolower is undefined if the argument's value is neither representable 
-//as unsigned char nor equal to EOF. 
-//To use these functions safely with plain chars (or signed chars), 
-//  the argument should first be converted to unsigned char
+// https://en.cppreference.com/w/cpp/string/byte/tolower
+// the behavior of std::tolower is undefined if the argument's value is neither representable 
+// as unsigned char nor equal to EOF. 
+// To use these functions safely with plain chars (or signed chars), 
+//   the argument should first be converted to unsigned char
 inline char toupper(unsigned char c)
 {
     return static_cast<char>(std::toupper(c));

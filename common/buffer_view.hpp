@@ -107,7 +107,7 @@ public:
         return data_ + readpos_;
     }
 
-    //readable size
+    // readable size
     size_t size() const
     {
         return (size_ - readpos_);
@@ -164,8 +164,8 @@ private:
 
 protected:
     const char* data_;
-    //read position
+    // read position
     size_t readpos_;
-    //size
+    // size
     size_t size_;
 };

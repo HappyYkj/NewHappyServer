@@ -1,7 +1,6 @@
 #pragma once
 #include <thread>
 #include <atomic>
-#include <cstdint>
 #include "noncopyable.hpp"
 
 /* read write lock */
@@ -21,8 +20,11 @@ public:
             int count = 0;
             while (write_.load(std::memory_order_acquire))
             {
-                if (++count > 1000)
+                ++count;
+                if (count > 1000)
+                {
                     std::this_thread::yield();
+                }
             }
             read_.fetch_add(1, std::memory_order_release);
             if (write_.load(std::memory_order_acquire))
@@ -41,15 +43,21 @@ public:
         int count = 0;
         while (write_.exchange(true, std::memory_order_acquire))
         {
-            if (++count > 1000)
+            ++count;
+            if (count > 1000)
+            {
                 std::this_thread::yield();
+            }
         }
 
         count = 0;
         while (read_.load(std::memory_order_acquire))
         {
-            if (++count > 1000)
+            ++count;
+            if (count > 1000)
+            {
                 std::this_thread::yield();
+            }
         }
     }
 

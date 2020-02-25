@@ -67,7 +67,7 @@ namespace detail
 template<class TChild>
 class base_timer
 {
-    //every wheel size max 255
+    // every wheel size max 255
     static constexpr int  WHEEL_SIZE = 255;
 
     static constexpr int TIMERID_SHIT = 32;
@@ -76,7 +76,7 @@ class base_timer
     using child_t = TChild;
 
 public:
-    //precision ms
+    // precision ms
     static const int32_t PRECISION = 10;
 
     base_timer()
@@ -141,7 +141,6 @@ public:
                         timers.pop_front();
                         auto slot = get_slot(key, i);
                         (*wheel)[slot].push_front(key);
-                        //printf("update timer id %u add to wheel [%d] slot [%d]\r\n", (key>>32), i+1, slot);
                     }
                     next_wheel->pop_front();
                 }
@@ -171,7 +170,7 @@ public:
     }
 
 protected:
-    // slots:      8bit(notuse) 8bit(wheel3_slot)  8bit(wheel2_slot)  8bit(wheel1_slot)  
+    // slots:   8bit(notuse) 8bit(wheel3_slot)  8bit(wheel2_slot)  8bit(wheel1_slot)
     uint64_t make_key(timer_id_t id, uint32_t slots)
     {
         return ((static_cast<uint64_t>(id) << TIMERID_SHIT) | slots);
@@ -203,10 +202,8 @@ protected:
             slot_count -= slot;
             slots |= (static_cast<uint32_t>(slot) << (i * 8));
             key = make_key(id, slots);
-            //printf("process timer id %u wheel[%d] slot[%d]\r\n", t->id(), i+1, slot);
             if (slot_count < wheel.size())
             {
-                //printf("timer id %u add to wheel [%d] slot [%d]\r\n",t->id(),  i + 1, slot);
                 wheel[slot].push_back(key);
                 break;
             }

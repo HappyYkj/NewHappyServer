@@ -64,7 +64,7 @@ class server_config_manger
             }
 
             server_config scfg;
-            scfg.sid = rapidjson::get_value<int32_t>(&c, "sid", -1);//server id
+            scfg.sid = rapidjson::get_value<int32_t>(&c, "sid", -1);// server id
             if (scfg.sid == -1)
             {
                 printf("Server config format error:must has sid");
@@ -121,14 +121,14 @@ public:
         for (auto&c : doc.GetArray())
         {
             server_config scfg;
-            scfg.sid = rapidjson::get_value<int32_t>(&c, "sid", -1);//server id
+            scfg.sid = rapidjson::get_value<int32_t>(&c, "sid", -1);// server id
             if (scfg.sid == -1)
             {
                 printf("Server config format error:must has sid.\n");
                 return false;
             }
 
-            scfg.name = rapidjson::get_value<std::string>(&c, "name");//server name
+            scfg.name = rapidjson::get_value<std::string>(&c, "name");// server name
             if (scfg.name.empty())
             {
                 printf("Server config format error:must has name.\n");

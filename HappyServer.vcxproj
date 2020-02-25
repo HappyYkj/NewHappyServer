@@ -272,7 +272,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <DisableSpecificWarnings>4244;4267;4311;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;4267;4311;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -326,7 +326,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4244;4267;4311;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4244;4267;4311;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

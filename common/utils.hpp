@@ -21,7 +21,7 @@ namespace detail
     }
 }
 
-//std::function<R(TClass*,Args...)> make_bind(&some_member_func)
+// std::function<R(TClass*,Args...)> make_bind(&some_member_func)
 template<typename R, typename TClass, typename... Args, typename Indices = std::make_index_sequence<sizeof...(Args) + 1>>
 auto make_bind(R(TClass::*fn)(Args...))->decltype(detail::make_bind_imp(fn, Indices()))
 {

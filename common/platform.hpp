@@ -16,7 +16,7 @@
 // win32
 #if !defined(SAG_COM) && (defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
 #if defined(WINCE) || defined(_WIN32_WCE)
-//win ce
+// win ce
 #else
 #undef  TARGET_PLATFORM
 #define TARGET_PLATFORM         PLATFORM_WINDOWS
@@ -41,7 +41,7 @@
 
 #include <thread>
 
-//Return current thread id as size_t (from thread local storage)
+// Return current thread id as size_t (from thread local storage)
 inline size_t thread_id()
 {
     return std::hash<std::thread::id>{}(std::this_thread::get_id());

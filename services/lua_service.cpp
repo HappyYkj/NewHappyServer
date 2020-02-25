@@ -83,43 +83,38 @@ bool lua_service::init(std::string_view config)
     lua_bind::registerlib(lua_.lua_state(), "core", module);
     lua_bind::registerlib(lua_.lua_state(), "lfs", luaopen_lfs);
     lua_bind::registerlib(lua_.lua_state(), "lluv", luaopen_lluv);
+    lua_bind::registerlib(lua_.lua_state(), "json", luaopen_cjson);
     lua_bind::registerlib(lua_.lua_state(), "seri", luaopen_serialize);
 
-    server_config_manger& server_config = server_config_manger::instance();
+    auto server_cfg = server_config_manger::instance().get_server_config();
+    if (server_cfg != nullptr)
     {
-        auto cpaths = conf.get_value<std::vector<std::string_view>>("cpath");
-        if (auto server_cfg = server_config.get_server_config(); server_cfg != nullptr)
+        std::string path;
+        path.append(".").append(LUA_PATH_STR);
+        for (auto& v : server_cfg->path)
         {
-            std::copy(server_cfg->cpath.begin(), server_cfg->cpath.end(), std::back_inserter(cpaths));
-        }
-        std::string strpath;
-        strpath.append("package.cpath ='");
-        for (auto& v : cpaths)
-        {
-            strpath.append(v.data(), v.size());
-            strpath.append(LUA_CPATH_STR);
-        }
-        strpath.append("'..package.cpath");
-        lua_.script(strpath);
-    }
-
-    auto paths = conf.get_value<std::vector<std::string_view>>("path");
-    {
-        if (auto server_cfg = server_config.get_server_config(); server_cfg != nullptr)
-        {
-            std::copy(server_cfg->path.begin(), server_cfg->path.end(), std::back_inserter(paths));
-        }
-        std::string strpath;
-        strpath.append("package.path ='");
-        for (auto& v : paths)
-        {
+            std::string strpath;
             strpath.append(v.data(), v.size());
             strpath.append(LUA_PATH_STR);
+            path.append(strpath);
         }
-        strpath.append("'..package.path");
-        lua_.script(strpath);
+        path.append(lua_["package"]["path"]);
+        lua_["package"]["path"] = path;
+
+        std::string cpath;
+        cpath.append(".").append(LUA_PATH_STR);
+        for (auto& v : server_cfg->cpath)
+        {
+            std::string strpath;
+            strpath.append(v.data(), v.size());
+            strpath.append(LUA_PATH_STR);
+            cpath.append(strpath);
+        }
+        cpath.append(lua_["package"]["cpath"]);
+        lua_["package"]["cpath"] = cpath;
     }
 
+    // sol::protected_function_result call_result = lua_.script_file(luafile, sol::script_pass_on_error);
     sol::load_result load_result = lua_.load_file(luafile);
     if (!load_result.valid())
     {
@@ -189,7 +184,7 @@ void lua_service::dispatch(message* msg)
     if (!result.valid())
     {
         sol::error err = result;
-        if (msg->sessionid() >= 0 || msg->receiver() == 0)//socket mesage receiver==0
+        if (msg->sessionid() >= 0 || msg->receiver() == 0) // socket mesage receiver==0
         {
             CONSOLE_ERROR(get_logger(), "%s dispatch:\n%s", name().data(), err.what());
             return;

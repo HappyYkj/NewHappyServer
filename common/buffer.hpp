@@ -242,7 +242,7 @@ public:
     using pointer = typename iterator::pointer;
     using const_pointer = typename const_iterator::pointer;
 
-    //buffer default size
+    // buffer default size
     constexpr static size_t   STACK_CAPACITY = 256 - 4 * sizeof(size_t) - sizeof(std::unique_ptr<value_type[]>);
 
     enum seek_origin
@@ -389,7 +389,7 @@ public:
         flag_ &= ~static_cast<uint32_t>(v);
     }
 
-    //mark
+    // mark
     void offset_writepos(int offset) noexcept
     {
         writepos_ += offset;
@@ -429,7 +429,7 @@ public:
         return  std::addressof(*begin());
     }
 
-    //readable size
+    // readable size
     size_t size() const noexcept
     {
         return writepos_ - readpos_;

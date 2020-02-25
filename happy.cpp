@@ -28,7 +28,7 @@ static BOOL WINAPI ConsoleHandlerRoutine(DWORD dwCtrlType)
         return TRUE;
     case CTRL_CLOSE_EVENT:
     case CTRL_SHUTDOWN_EVENT:
-    case CTRL_LOGOFF_EVENT://atmost 10 second,will force closed by system
+    case CTRL_LOGOFF_EVENT: // atmost 10 second,will force closed by system
         svr->stop();
         while (svr->get_state() != state::exited)
         {
@@ -99,9 +99,9 @@ int main(int argc, char* argv[])
 
     directory::working_directory = directory::current_directory();
 
-    std::string conf = "config.json";//default config
-    int32_t sid = 1;//default start server 1
-    std::string service_file = "main.lua";//default file
+    std::string conf = "config.json";       // default config
+    int32_t sid = 1;                        // default start server 1
+    std::string service_file = "main.lua";  // default file
 
     for (int i = 1; i < argc; ++i)
     {

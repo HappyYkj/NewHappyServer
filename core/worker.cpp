@@ -75,12 +75,11 @@ void worker::init()
 
             if (!queue_.empty())
             {
+                std::unique_lock<std::mutex> lock(mutex_);
                 auto task = queue_.front();
                 queue_.pop_front();
-                if (task)
-                {
-                    task();
-                }
+                lock.unlock();
+                task();
             }
 
             std::this_thread::yield();
@@ -97,7 +96,8 @@ void worker::init()
 
 void worker::stop()
 {
-    queue_.push_back([this] {
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.emplace_back([this] {
         auto s = state_.load(std::memory_order_acquire);
         if (s == state::stopping || s == state::exited)
         {
@@ -142,7 +142,8 @@ uint32_t worker::uuid()
 
 void worker::add_service(std::string service_type, std::string config, bool unique, uint32_t creatorid, int32_t sessionid)
 {
-    queue_.push_back([this, service_type = std::move(service_type), config = std::move(config), unique, creatorid, sessionid](){
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.emplace_back([this, service_type = std::move(service_type), config = std::move(config), unique, creatorid, sessionid](){
         do
         {
             if (state_.load(std::memory_order_acquire) != state::ready)
@@ -161,7 +162,7 @@ void worker::add_service(std::string service_type, std::string config, bool uniq
                 }
                 serviceid = uuid();
                 ++counter;
-            } while (services_.find(serviceid)!= services_.end());
+            } while (services_.find(serviceid) != services_.end());
 
             auto s = router_->make_service(service_type);
             if (!s)
@@ -213,7 +214,8 @@ void worker::add_service(std::string service_type, std::string config, bool uniq
 
 void worker::remove_service(uint32_t serviceid, uint32_t sender, uint32_t sessionid)
 {
-    queue_.push_back([this, serviceid, sender, sessionid] {
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.emplace_back([this, serviceid, sender, sessionid] {
         if (auto s = find_service(serviceid); nullptr != s)
         {
             count_.fetch_sub(1, std::memory_order_release);
@@ -245,7 +247,8 @@ void worker::send(message_ptr_t&& msg)
 {
     if (mq_.push_back(std::move(msg)) == 1)
     {
-        queue_.push_back([this] {
+        std::lock_guard<std::mutex> lock(mutex_);
+        queue_.emplace_back([this] {
             size_t count = 0;
             if (mq_.size() != 0)
             {
@@ -269,7 +272,7 @@ void worker::send(message_ptr_t&& msg)
                     CONSOLE_WARN(router_->get_logger(), "worker handle cost %" PRId64 "ms queue size %zu", difftime, count);
                 }
             }
-        });
+    });
     }
 }
 
@@ -290,7 +293,8 @@ service* worker::find_service(uint32_t serviceid) const
 
 void worker::runcmd(uint32_t sender, const std::string& cmd, int32_t sessionid)
 {
-    queue_.push_back([this, sender, cmd, sessionid] {
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.emplace_back([this, sender, cmd, sessionid] {
         auto params = split<std::string>(cmd, ".");
 
         switch (chash_string(params[0]))
@@ -339,7 +343,8 @@ bool worker::shared() const
 
 void worker::start()
 {
-    queue_.push_back([this] {
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.emplace_back([this] {
         for (auto& it : services_)
         {
             it.second->start();
@@ -355,7 +360,8 @@ void worker::update()
         return;
     }
 
-    queue_.push_back([this] {
+    std::lock_guard<std::mutex> lock(mutex_);
+    queue_.emplace_back([this] {
         timer_.update();
 
         if (!prefabs_.empty())
