@@ -102,12 +102,12 @@ bool lua_service::init(std::string_view config)
         lua_["package"]["path"] = path;
 
         std::string cpath;
-        cpath.append(".").append(LUA_PATH_STR);
+        cpath.append(".").append(LUA_CPATH_STR);
         for (auto& v : server_cfg->cpath)
         {
             std::string strpath;
             strpath.append(v.data(), v.size());
-            strpath.append(LUA_PATH_STR);
+            strpath.append(LUA_CPATH_STR);
             cpath.append(strpath);
         }
         cpath.append(lua_["package"]["cpath"]);

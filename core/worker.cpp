@@ -20,18 +20,7 @@ worker::~worker()
 
 void worker::init()
 {
-    /////-----
-    /*
     //register commands
-    commands_.try_emplace("stat", [this](const std::vector<std::string>& params) {
-        (void)params;
-        ////----
-        // auto response = format(R"({"work_time":%lld,"socket_num":%zu})", cpu_time_, socket_->socket_num());
-        auto response = format(R"({"work_time":%lld,"socket_num":%zu})", cpu_time_, 0);
-        cpu_time_ = 0;
-        return response;
-    });
-
     commands_.try_emplace("services", [this](const std::vector<std::string>& params) {
         (void)params;
         std::string content;
@@ -43,7 +32,6 @@ void worker::init()
         content.append("]");
         return content;
     });
-    */
 
     timer_.set_now_func([this]() {
         return server_->now();
@@ -82,7 +70,8 @@ void worker::init()
                 task();
             }
 
-            std::this_thread::yield();
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            // std::this_thread::yield();
         }
 
         CONSOLE_INFO(router_->get_logger(), "WORKER-%u STOP", workerid_);
@@ -90,7 +79,8 @@ void worker::init()
 
     while (state_.load(std::memory_order_acquire) != state::ready)
     {
-        std::this_thread::yield();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        // std::this_thread::yield();
     }
 }
 
@@ -325,7 +315,7 @@ void worker::send_prefab(uint32_t sender, uint32_t receiver, uint32_t prefabid, 
 {
     if (auto iter = prefabs_.find(prefabid); iter != prefabs_.end())
     {
-        router_->send(sender, receiver, std::move(iter->second), header, sessionid, type);
+        router_->send(sender, receiver, iter->second, header, sessionid, type);
         return;
     }
     CONSOLE_DEBUG(server_->get_logger(), "send_prefab failed, can not find prepared data. prefabid %u", prefabid);

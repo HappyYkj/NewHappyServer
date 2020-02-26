@@ -32,7 +32,8 @@ static BOOL WINAPI ConsoleHandlerRoutine(DWORD dwCtrlType)
         svr->stop();
         while (svr->get_state() != state::exited)
         {
-            std::this_thread::yield();
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            // std::this_thread::yield();
         }
         return TRUE;
     default:
@@ -216,7 +217,8 @@ int main(int argc, char* argv[])
     while (server_->get_state() == state::init &&
            server_->service_count() < c->services.size())
     {
-        std::this_thread::yield();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        // std::this_thread::yield();
     }
 
     // then call services's start
