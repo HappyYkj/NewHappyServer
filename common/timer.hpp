@@ -115,14 +115,15 @@ public:
         {
             tick_ -= PRECISION;
             if (stop_)
-                continue;
             {
-                auto& timers = wheels[0].front();
-                wheels[0].pop_front();
-                if (!timers.empty())
-                {
-                    expired(timers);
-                }
+                continue;
+            }
+
+            auto& timers = wheels[0].front();
+            wheels[0].pop_front();
+            if (!timers.empty())
+            {
+                expired(timers);
             }
 
             int i = 0;
@@ -130,24 +131,24 @@ public:
             {
                 auto next_wheel = wheel;
                 if (wheels.end() == (++next_wheel))
+                {
                     break;
+                }
 
-                if (wheel->round())
-                {
-                    auto& timers = next_wheel->front();
-                    while (!timers.empty())
-                    {
-                        auto key = timers.front();
-                        timers.pop_front();
-                        auto slot = get_slot(key, i);
-                        (*wheel)[slot].push_front(key);
-                    }
-                    next_wheel->pop_front();
-                }
-                else
+                if (!wheel->round())
                 {
                     break;
                 }
+
+                auto& timers = next_wheel->front();
+                while (!timers.empty())
+                {
+                    auto key = timers.front();
+                    timers.pop_front();
+                    auto slot = get_slot(key, i);
+                    (*wheel)[slot].push_front(key);
+                }
+                next_wheel->pop_front();
             }
         }
         return old_tick;

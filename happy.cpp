@@ -100,8 +100,8 @@ int main(int argc, char* argv[])
 
     directory::working_directory = directory::current_directory();
 
-    std::string conf = "config.json";       // default config
     int32_t sid = 1;                        // default start server 1
+    std::string conf = "config.json";       // default config
     std::string service_file = "main.lua";  // default file
 
     for (int i = 1; i < argc; ++i)
@@ -205,7 +205,7 @@ int main(int argc, char* argv[])
         return std::make_unique<lua_service>();
     });
 
-    server_->init(static_cast<uint8_t>(c->thread), c->log);
+    server_->init(c->thread, c->log);
     server_->get_logger()->set_level(c->loglevel);
 
     for (auto& s : c->services)
@@ -217,8 +217,7 @@ int main(int argc, char* argv[])
     while (server_->get_state() == state::init &&
            server_->service_count() < c->services.size())
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        // std::this_thread::yield();
+        std::this_thread::yield();
     }
 
     // then call services's start

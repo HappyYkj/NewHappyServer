@@ -81,10 +81,17 @@ bool lua_service::init(std::string_view config)
             .bind_message()
             .bind_timer(this);
     lua_bind::registerlib(lua_.lua_state(), "core", module);
-    lua_bind::registerlib(lua_.lua_state(), "lfs", luaopen_lfs);
+    lua_bind::registerlib(lua_.lua_state(), "lfs",  luaopen_lfs);
     lua_bind::registerlib(lua_.lua_state(), "lluv", luaopen_lluv);
     lua_bind::registerlib(lua_.lua_state(), "json", luaopen_cjson);
     lua_bind::registerlib(lua_.lua_state(), "seri", luaopen_serialize);
+
+    lua_bind::registerlib(lua_.lua_state(), "pb",        luaopen_pb);
+    lua_bind::registerlib(lua_.lua_state(), "pb.io",     luaopen_pb_io);
+    lua_bind::registerlib(lua_.lua_state(), "pb.buffer", luaopen_pb_buffer);
+    lua_bind::registerlib(lua_.lua_state(), "pb.slice",  luaopen_pb_slice);
+    lua_bind::registerlib(lua_.lua_state(), "pb.conv",   luaopen_pb_conv);
+    lua_bind::registerlib(lua_.lua_state(), "pb.unsafe", luaopen_pb_unsafe);
 
     auto server_cfg = server_config_manger::instance().get_server_config();
     if (server_cfg != nullptr)

@@ -7,10 +7,10 @@
 #include "server.h"
 #include "service.hpp"
 
-worker::worker(server* srv, router* r, uint32_t id)
-    : workerid_(id)
-    , router_(r)
-    , server_(srv)
+worker::worker(server* server, router* router, uint8_t id)
+    : server_(server)
+    , router_(router)
+    , workerid_(id)
 {
 }
 
@@ -20,19 +20,6 @@ worker::~worker()
 
 void worker::init()
 {
-    //register commands
-    commands_.try_emplace("services", [this](const std::vector<std::string>& params) {
-        (void)params;
-        std::string content;
-        content.append("[");
-        for (auto& it : services_)
-        {
-            content.append(format(R"({"name":"%s","serviceid":"%X"},)", it.second->name().data(), it.second->id()));
-        }
-        content.append("]");
-        return content;
-    });
-
     timer_.set_now_func([this]() {
         return server_->now();
     });
@@ -77,10 +64,10 @@ void worker::init()
         CONSOLE_INFO(router_->get_logger(), "WORKER-%u STOP", workerid_);
     });
 
+    // wait for thread is created
     while (state_.load(std::memory_order_acquire) != state::ready)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        // std::this_thread::yield();
+        std::this_thread::yield();
     }
 }
 
@@ -262,11 +249,11 @@ void worker::send(message_ptr_t&& msg)
                     CONSOLE_WARN(router_->get_logger(), "worker handle cost %" PRId64 "ms queue size %zu", difftime, count);
                 }
             }
-    });
+        });
     }
 }
 
-uint32_t worker::id() const
+uint8_t worker::id() const
 {
     return workerid_;
 }
@@ -279,46 +266,6 @@ service* worker::find_service(uint32_t serviceid) const
         return iter->second.get();
     }
     return nullptr;
-}
-
-void worker::runcmd(uint32_t sender, const std::string& cmd, int32_t sessionid)
-{
-    std::lock_guard<std::mutex> lock(mutex_);
-    queue_.emplace_back([this, sender, cmd, sessionid] {
-        auto params = split<std::string>(cmd, ".");
-
-        switch (chash_string(params[0]))
-        {
-        case "worker"_csh:
-        {
-            if (auto iter = commands_.find(params[2]); iter != commands_.end())
-            {
-                router_->response(sender, std::string_view{}, iter->second(params), sessionid);
-            }
-            break;
-        }
-        }
-    });
-}
-
-uint32_t worker::make_prefab(const buffer_ptr_t & buf)
-{
-    auto iter = prefabs_.emplace(uuid(), buf);
-    if (iter.second)
-    {
-        return iter.first->first;
-    }
-    return 0;
-}
-
-void worker::send_prefab(uint32_t sender, uint32_t receiver, uint32_t prefabid, string_view_t header, int32_t sessionid, uint8_t type) const
-{
-    if (auto iter = prefabs_.find(prefabid); iter != prefabs_.end())
-    {
-        router_->send(sender, receiver, iter->second, header, sessionid, type);
-        return;
-    }
-    CONSOLE_DEBUG(server_->get_logger(), "send_prefab failed, can not find prepared data. prefabid %u", prefabid);
 }
 
 void worker::shared(bool v)
@@ -353,11 +300,6 @@ void worker::update()
     std::lock_guard<std::mutex> lock(mutex_);
     queue_.emplace_back([this] {
         timer_.update();
-
-        if (!prefabs_.empty())
-        {
-            prefabs_.clear();
-        }
 
         update_state_.clear(std::memory_order_release);
     });

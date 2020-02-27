@@ -140,7 +140,9 @@ public:
         log_queue_.exit();
 
         if (thread_.joinable())
+        {
             thread_.join();
+        }
 
         if (ofs_&&ofs_->is_open())
         {
@@ -181,7 +183,9 @@ private:
     void write()
     {
         while (state_.load(std::memory_order_acquire) == state::init)
+        {
             std::this_thread::sleep_for(std::chrono::microseconds(50));
+        }
 
         queue_t::container_type swaps;
         while (state_.load() == state::ready || log_queue_.size() != 0)
@@ -233,16 +237,16 @@ private:
     {
         switch (lv)
         {
-        case LogLevel::Error:
-            return " | ERROR | ";
-        case LogLevel::Warn:
-            return " | WARN  | ";
-        case LogLevel::Info:
-            return " | INFO  | ";
-        case LogLevel::Debug:
-            return " | DEBUG | ";
-        default:
-            return " | NULL  | ";
+            case LogLevel::Error:
+                return " | ERROR | ";
+            case LogLevel::Warn:
+                return " | WARN  | ";
+            case LogLevel::Info:
+                return " | INFO  | ";
+            case LogLevel::Debug:
+                return " | DEBUG | ";
+            default:
+                return " | NULL  | ";
         }
     }
 

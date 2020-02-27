@@ -26,3 +26,6 @@
 [submodule "thirds/lfs"]
 	path = thirds/lfs
 	url = https://github.com/happiykj/luafilesystem.git
+[submodule "thirds/luaprotobuf"]
+	path = thirds/luaprotobuf
+	url = https://github.com/happiykj/lua-protobuf.git
