@@ -301,19 +301,12 @@ const lua_bind& lua_bind::bind_service(lua_service* service) const
     auto server_ = service->get_server();
     auto worker_ = service->get_worker();
 
-    lua.set("null", (void*)(router_));
-
     lua.set_function("name", &lua_service::name, service);
     lua.set_function("id", &lua_service::id, service);
     lua.set_function("set_cb", &lua_service::set_callback, service);
-    lua.set_function("make_prefab", &worker::make_prefab, worker_);
-    lua.set_function("send_prefab", [worker_, service](uint32_t receiver, uint32_t cacheid, const string_view_t& header, int32_t sessionid, uint8_t type) {
-        worker_->send_prefab(service->id(), receiver, cacheid, header, sessionid, type);
-    });
     lua.set_function("send", &router::send, router_);
     lua.set_function("new_service", &router::new_service, router_);
     lua.set_function("remove_service", &router::remove_service, router_);
-    lua.set_function("runcmd", &router::runcmd, router_);
     lua.set_function("broadcast", &router::broadcast, router_);
     lua.set_function("queryservice", &router::get_unique_service, router_);
     lua.set_function("set_env", &router::set_env, router_);
@@ -323,7 +316,6 @@ const lua_bind& lua_bind::bind_service(lua_service* service) const
     lua.set_function("now", &server::now, server_);
     return *this;
 }
-
 
 void lua_bind::registerlib(lua_State* state, const char* name, lua_CFunction function)
 {

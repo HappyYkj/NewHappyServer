@@ -43,32 +43,6 @@ void router::remove_service(uint32_t serviceid, uint32_t sender, int32_t session
     }
 }
 
-void router::runcmd(uint32_t sender, const std::string& cmd, int32_t sessionid)
-{
-    auto params = split<std::string>(cmd, ".");
-    if (params.size() < 3)
-    {
-        response(sender, "router::runcmd ", format("param too few: %s", cmd.data()), sessionid, PTYPE_ERROR);
-        return;
-    }
-
-    switch (chash_string(params[0]))
-    {
-        case "worker"_csh:
-        {
-            int32_t workerid = string_convert<int32_t>(params[1]);
-            if (workerid_valid(workerid))
-            {
-                get_worker(workerid)->runcmd(sender, cmd, sessionid);
-                return;
-            }
-            break;
-        }
-    }
-
-    response(sender, "router::runcmd ", format("invalid cmd: %s.", cmd.data()), sessionid, PTYPE_ERROR);
-}
-
 void router::send_message(message_ptr_t&& m) const
 {
     if (m->type() == PTYPE_UNKNOWN)
@@ -121,11 +95,15 @@ void router::broadcast(uint32_t sender, const buffer_ptr_t& buf, string_view_t h
     }
 }
 
-bool router::register_service(const std::string & type, register_func f)
+bool router::register_service(const std::string& type, register_func f)
 {
     auto ret = regservices_.emplace(type, f);
-    // ASSERT(ret.second, format("already registed service type[%s].", type.data()).data());
-    return ret.second;
+    if (!ret.second)
+    {
+        CONSOLE_ERROR(get_logger(), "already registed service type[%s].", type.data());
+        return false;
+    }
+    return true;
 }
 
 service_ptr_t router::make_service(const std::string & type)
@@ -219,22 +197,21 @@ worker* router::get_worker(uint32_t workerid) const
 
 worker* router::next_worker()
 {
-    uint32_t  n = next_workerid_.fetch_add(1);
-    std::vector<uint32_t> free_worker;
-    for (auto& w : workers_)
+    size_t n = next_workerid_.fetch_add(1);
+    std::vector<uint8_t> free_worker;
+    for (auto& worker : workers_)
     {
-        if (w->shared())
+        if (worker->shared())
         {
-            free_worker.emplace_back(w->id()-1U);
+            free_worker.emplace_back(worker->id() - 1);
         }
     }
     if (!free_worker.empty())
     {
-        auto wkid = free_worker[n%free_worker.size()];
+        auto wkid = free_worker[n % free_worker.size()];
         return workers_[wkid].get();
     }
-    n %= workers_.size();
-    return workers_[n].get();
+    return workers_[n % workers_.size()].get();
 }
 
 void router::set_server(server * sv)

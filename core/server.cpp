@@ -16,7 +16,7 @@ server::~server()
     wait();
 }
 
-void server::init(int worker_num, const std::string& logpath)
+void server::init(uint8_t worker_num, const std::string& logpath)
 {
     worker_num = (worker_num <= 0) ? 1 : worker_num;
 
@@ -24,9 +24,9 @@ void server::init(int worker_num, const std::string& logpath)
 
     router_.set_server(this);
 
-    CONSOLE_INFO(get_logger(), "INIT with %d workers.", worker_num);
+    CONSOLE_INFO(get_logger(), "INIT with %ud workers.", worker_num);
 
-    for (int idx = 0; idx < worker_num; idx++)
+    for (uint8_t idx = 0; idx < worker_num; idx++)
     {
         workers_.emplace_back(std::make_unique<worker>(this, &router_, idx + 1));
     }

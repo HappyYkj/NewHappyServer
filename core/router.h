@@ -24,8 +24,6 @@ public:
 
     void remove_service(uint32_t serviceid, uint32_t sender, int32_t sessionid);
 
-    void runcmd(uint32_t sender, const std::string& cmd, int32_t sessionid);
-
     void send_message(message_ptr_t&& msg) const;
 
     void send(uint32_t sender, uint32_t receiver, buffer_ptr_t buf, string_view_t header, int32_t sessionid, uint8_t type) const;

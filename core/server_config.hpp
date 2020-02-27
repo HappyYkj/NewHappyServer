@@ -20,7 +20,7 @@ struct service_config
 struct server_config
 {
     int32_t sid = 0;
-    int32_t thread = 0;
+    uint8_t thread = 0;
     std::string loglevel;
     std::string name;
     std::string outer_host;

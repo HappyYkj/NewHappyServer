@@ -14,7 +14,7 @@ public:
 
     server(server&&) = delete;
 
-    void init(int worker_num, const std::string& logpath);
+    void init(uint8_t worker_num, const std::string& logpath);
 
     void run();
 

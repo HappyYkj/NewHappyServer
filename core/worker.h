@@ -23,7 +23,7 @@ public:
 
     friend class socket;
 
-    explicit worker(server* srv, router* r, uint32_t id);
+    explicit worker(server* server, router* router, uint8_t id);
 
     ~worker();
 
@@ -33,7 +33,7 @@ public:
 
     void remove_service(uint32_t serviceid, uint32_t sender, uint32_t sessionid);
 
-    uint32_t id() const;
+    uint8_t id() const;
 
     uint32_t uuid();
 
@@ -44,12 +44,6 @@ public:
     void shared(bool v);
 
     bool shared() const;
-
-    void runcmd(uint32_t sender, const std::string& cmd, int32_t sessionid);
-
-    uint32_t make_prefab(const buffer_ptr_t& buf);
-
-    void send_prefab(uint32_t sender, uint32_t receiver, uint32_t prefabid, string_view_t header, int32_t sessionid, uint8_t type) const;
 
     worker_timer& timer() { return timer_; }
 
@@ -79,7 +73,7 @@ private:
     std::atomic_uint32_t count_ = 0;
     uint32_t uuid_ = 0;
     int64_t cpu_time_ = 0;
-    uint32_t workerid_;
+    uint8_t workerid_;
     router* router_;
     server* server_;
     std::deque<task_t> queue_;
@@ -88,7 +82,6 @@ private:
     queue_t::container_type swapmq_;
     worker_timer timer_;
     std::unordered_map<uint32_t, service_ptr_t> services_;
-    std::unordered_map<uint32_t, buffer_ptr_t> prefabs_;
     std::unordered_map<std::string, command_hander_t> commands_;
     std::mutex mutex_;
 };
