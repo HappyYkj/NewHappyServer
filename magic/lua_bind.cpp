@@ -101,30 +101,6 @@ static void register_lua_print(sol::table& lua, logger* log, uint32_t serviceid)
     lua_setglobal(lua.lua_state(), "print");
 }
 
-static void lua_extend_library(lua_State* L, lua_CFunction f, const char* gname, const char* name)
-{
-    lua_getglobal(L, gname);
-    lua_pushcfunction(L, f);
-    lua_setfield(L, -2, name);
-    lua_pop(L, 1); /* pop gname table */
-    assert(lua_gettop(L) == 0);
-}
-
-static void sol_extend_library(sol::table t, lua_CFunction f, const char* name, const std::function<int(lua_State* L)>& uv = nullptr)
-{
-    lua_State* L = t.lua_state();
-    t.push(); // sol table
-    int upvalue = 0;
-    if (uv)
-    { 
-        upvalue = uv(L);
-    }
-    lua_pushcclosure(L, f, upvalue);
-    lua_setfield(L, -2, name);
-    lua_pop(L, 1); // sol table
-    assert(lua_gettop(L) == 0);
-}
-
 const lua_bind& lua_bind::bind_util() const
 {
     lua.set_function("second", time::second);
@@ -299,7 +275,6 @@ const lua_bind& lua_bind::bind_service(lua_service* service) const
 {
     auto router_ = service->get_router();
     auto server_ = service->get_server();
-    auto worker_ = service->get_worker();
 
     lua.set_function("name", &lua_service::name, service);
     lua.set_function("id", &lua_service::id, service);

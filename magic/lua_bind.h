@@ -53,4 +53,6 @@ extern "C"
     int luaopen_pb_slice(lua_State* L);
     int luaopen_pb_conv(lua_State* L);
     int luaopen_pb_unsafe(lua_State* L);
+
+    int luaopen_luasql_mysql(lua_State* L);
 }

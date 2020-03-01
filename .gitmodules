@@ -29,3 +29,6 @@
 [submodule "thirds/luaprotobuf"]
 	path = thirds/luaprotobuf
 	url = https://github.com/happiykj/lua-protobuf.git
+[submodule "thirds/luasql"]
+	path = thirds/luasql
+	url = https://github.com/happiykj/luasql.git

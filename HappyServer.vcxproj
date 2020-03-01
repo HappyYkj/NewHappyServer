@@ -92,6 +92,8 @@
     <ClCompile Include="thirds\luajson\lua_cjson.c" />
     <ClCompile Include="thirds\luajson\strbuf.c" />
     <ClCompile Include="thirds\luaprotobuf\pb.c" />
+    <ClCompile Include="thirds\luasql\src\ls_mysql.c" />
+    <ClCompile Include="thirds\luasql\src\luasql.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\buffer.hpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="thirds\luajson\dtoa_config.h" />
     <ClInclude Include="thirds\luajson\fpconv.h" />
     <ClInclude Include="thirds\luajson\strbuf.h" />
+    <ClInclude Include="thirds\luasql\src\luasql.h" />
     <ClInclude Include="thirds\sol\forward.hpp" />
     <ClInclude Include="thirds\sol\sol.hpp" />
   </ItemGroup>
@@ -239,22 +242,22 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>
       </SDLCheck>
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\;.\plugin\mysql-5.7.28-winx64\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4018;4244;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysqld.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\plugin\mysql-5.7.28-winx64\lib\;$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -265,21 +268,21 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\;.\plugin\mysql-5.7.28-winx64\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <DisableSpecificWarnings>4244;4267;4311;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4057;4059;4100;4127;4189;4201;4204;4206;4210;4232;4244;4245;4267;4311;4456;4459;4701;4702;4706;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysqld.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\plugin\mysql-5.7.28-winx64\lib\;$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -290,7 +293,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -298,7 +301,7 @@
       <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\;.\plugin\mysql-5.7.28-winx64\include\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4018;4244;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -306,8 +309,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\plugin\mysql-5.7.28-winx64\lib\;$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -318,7 +321,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -326,16 +329,16 @@
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4244;4267;4311;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\;.\plugin\mysql-5.7.28-winx64\include\</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4057;4059;4100;4127;4189;4201;4204;4206;4210;4232;4244;4245;4267;4311;4456;4459;4701;4702;4706;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;advapi32.lib;iphlpapi.lib;psapi.lib;shell32.lib;user32.lib;userenv.lib;ws2_32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\plugin\mysql-5.7.28-winx64\lib\;$(SolutionDir)libs\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
