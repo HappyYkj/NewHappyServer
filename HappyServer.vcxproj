@@ -91,6 +91,7 @@
     <ClCompile Include="thirds\luajson\fpconv.c" />
     <ClCompile Include="thirds\luajson\lua_cjson.c" />
     <ClCompile Include="thirds\luajson\strbuf.c" />
+    <ClCompile Include="thirds\luamsgpack\lua_cmsgpack.c" />
     <ClCompile Include="thirds\luaprotobuf\pb.c" />
     <ClCompile Include="thirds\luasql\src\ls_mysql.c" />
     <ClCompile Include="thirds\luasql\src\luasql.c" />
@@ -165,6 +166,9 @@
     <ClInclude Include="thirds\luasql\src\luasql.h" />
     <ClInclude Include="thirds\sol\forward.hpp" />
     <ClInclude Include="thirds\sol\sol.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="output\main.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -290,7 +294,7 @@ copy $(ProjectDir)config.json                                                   
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\;.\plugin\mysql-5.7.28-winx64\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <DisableSpecificWarnings>4057;4059;4100;4127;4189;4201;4204;4206;4210;4232;4244;4245;4267;4311;4456;4459;4701;4702;4706;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4057;4059;4100;4127;4189;4201;4204;4206;4210;4232;4244;4245;4267;4311;4456;4457;4459;4701;4702;4706;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -372,7 +376,7 @@ copy $(ProjectDir)config.json                                                   
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>.\;.\common\;.\thirds\lua\lua\;.\thirds\rapidjson\include\;.\thirds\libuv\include\;.\thirds\sol2\include\;.\thirds\libuv\src\;.\thirds\luajson\;.\plugin\mysql-5.7.28-winx64\include\</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4057;4059;4100;4127;4189;4201;4204;4206;4210;4232;4244;4245;4267;4311;4456;4459;4701;4702;4706;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4057;4059;4100;4127;4189;4201;4204;4206;4210;4232;4244;4245;4267;4311;4456;4457;4459;4701;4702;4706;4819;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

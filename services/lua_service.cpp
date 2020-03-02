@@ -93,6 +93,8 @@ bool lua_service::init(std::string_view config)
     lua_bind::registerlib(lua_.lua_state(), "pb.conv",   luaopen_pb_conv);
     lua_bind::registerlib(lua_.lua_state(), "pb.unsafe", luaopen_pb_unsafe);
 
+    lua_bind::registerlib(lua_.lua_state(), "msgpack",      luaopen_cmsgpack);
+    lua_bind::registerlib(lua_.lua_state(), "msgpack.safe", luaopen_cmsgpack_safe);
     lua_bind::registerlib(lua_.lua_state(), "luasql.mysql", luaopen_luasql_mysql);
 
     auto server_cfg = server_config_manger::instance().get_server_config();

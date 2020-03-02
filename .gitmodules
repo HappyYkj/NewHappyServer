@@ -32,3 +32,6 @@
 [submodule "thirds/luasql"]
 	path = thirds/luasql
 	url = https://github.com/happiykj/luasql.git
+[submodule "thirds/luamsgpack"]
+	path = thirds/luamsgpack
+	url = https://github.com/happiykj/lua-cmsgpack.git
