@@ -2,7 +2,6 @@
 #include "config.hpp"
 #include "common/concurrent_queue.hpp"
 #include "common/spinlock.hpp"
-#include "common/timer.hpp"
 #include "worker_timer.hpp"
 
 class server;
