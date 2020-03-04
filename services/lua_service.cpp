@@ -135,7 +135,7 @@ bool lua_service::init(std::string_view config)
     }
 
     sol::object json = lua_.require("json", luaopen_cjson, false);
-    sol::table tconfig = json.as<sol::table>().get<sol::function>("decode").call(config).get<sol::table>();
+    sol::table tconfig = json.as<sol::table>().get<sol::protected_function>("decode").call(config).get<sol::table>();
     sol::protected_function_result call_result = load_result.call(tconfig);
     if (!call_result.valid())
     {

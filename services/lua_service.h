@@ -15,7 +15,7 @@ public:
 #endif
     using lua_state_ptr_t = std::unique_ptr<lua_State, void(*)(lua_State*)>;
 
-    using sol_function_t = sol::function;
+    using sol_function_t = sol::protected_function;
 
     lua_service();
 
